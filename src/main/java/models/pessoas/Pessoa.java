@@ -24,10 +24,12 @@ public class Pessoa extends Model implements Serializable {
     protected Date validade_cc;
     protected String genero;
     protected Date data_nascimento;
+    protected boolean admin;
 
     public Pessoa() {
         super();
         table = "Pessoas";
+        admin = true;
     }
 
     public Pessoa(ResultSet resultSet) {
@@ -47,6 +49,7 @@ public class Pessoa extends Model implements Serializable {
             validade_cc = resultSet.getDate("validade_cc");
             genero = resultSet.getString("genero");
             data_nascimento = resultSet.getDate("data_nascimento");
+            admin = resultSet.getBoolean("admin");
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -102,6 +105,10 @@ public class Pessoa extends Model implements Serializable {
 
     public String getTipo() {
         return tipo;
+    }
+
+    public boolean isAdmin() {
+        return admin;
     }
 
     public void setTipo(String tipo) {
@@ -277,7 +284,8 @@ public class Pessoa extends Model implements Serializable {
 
     @Override
     public String sqlInsert() {
-        return sqlInsert("tipo," +
+        return sqlInsert("admin," +
+                        "tipo," +
                         "nome," +
                         "username," +
                         "password," +
@@ -290,7 +298,8 @@ public class Pessoa extends Model implements Serializable {
                         "validade_cc," +
                         "genero," +
                         "data_nascimento",
-                "'" + tipo + "'," +
+                        (admin ? 1 : 0) + "," +
+                        "'" + tipo + "'," +
                         "'" + nome + "'," +
                         "'" + username + "'," +
                         "'" + password + "'," +
@@ -324,7 +333,8 @@ public class Pessoa extends Model implements Serializable {
                 "Numero CC: " + numero_cc + "\n" +
                 "Validade CC: " + f.format(validade_cc) + "\n" +
                 "Género: " + genero + "\n" +
-                "Data Nascimento:" + f.format(data_nascimento) + "\n";
+                "Data Nascimento:" + f.format(data_nascimento) + "\n" +
+                "Admin: " + admin + "\n";
     }
 
     public boolean check(Eleicao eleicao) {

@@ -56,34 +56,34 @@ public abstract class Model implements Serializable {
         return "DELETE FROM " + table.substring(0, table.length() - 1) + "_" + model.table + " WHERE " + table.substring(0, table.length() - 1).toLowerCase() + "_id = " + id + " && " + model.table.substring(0, model.table.length() - 1).toLowerCase() + "_id = " + model.id;
     }
 
-    public boolean lenghtIgual(String s, int i) {
+    protected boolean lenghtIgual(String s, int i) {
         return s.length() == i;
     }
 
-    public boolean lenghtMaior(String s, int i) {
+    protected boolean lenghtMaior(String s, int i) {
         return s.length() > i;
     }
 
-    public boolean lenghtEntre(String s, int a, int b) {
+    protected boolean lenghtEntre(String s, int a, int b) {
         return s.length() >= a && s.length() <= b;
     }
 
-    public boolean isAlpha(String s) {
+    protected boolean isAlpha(String s) {
         Pattern p = Pattern.compile("^[ A-Za-z]+$");
         Matcher m = p.matcher(s);
         return !s.contains(";") && !s.contains("|") && m.matches();
     }
 
-    public boolean isNumber(String s) {
+    protected boolean isNumber(String s) {
         return s.matches("^[0-9]*$");
     }
 
-    public String dateToSqlDate(Date date) {
+    protected String dateToSqlDate(Date date) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
         return "'" + f.format(date) + "'";
     }
 
-    public String dateToSqlDateTime(Date date) {
+    protected String dateToSqlDateTime(Date date) {
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return "'" + f.format(date) + "'";
     }

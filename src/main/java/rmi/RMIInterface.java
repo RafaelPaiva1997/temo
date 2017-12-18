@@ -1,5 +1,9 @@
 package rmi;
 
+import com.sun.media.sound.InvalidFormatException;
+import exceptions.EmptyQueryException;
+import exceptions.PasswordException;
+import exceptions.UsernameException;
 import models.Lista;
 import models.MesadeVoto;
 import models.Model;
@@ -9,6 +13,7 @@ import models.pessoas.Pessoa;
 
 import java.rmi.Remote;
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.Date;
 
 public interface RMIInterface extends Remote {
@@ -29,7 +34,11 @@ public interface RMIInterface extends Remote {
 
     Model get(String table, String query) throws RemoteException;
 
+    ArrayList<Model> getMany(String table, String query) throws RemoteException, EmptyQueryException, InvalidFormatException;
+
     String query(String table, String query, String query2) throws RemoteException;
+
+    Pessoa login(String username, String password) throws RemoteException, UsernameException, PasswordException;
 
     int queryInt(String table, String query, String query2) throws RemoteException;
 
